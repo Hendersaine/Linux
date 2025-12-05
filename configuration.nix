@@ -33,11 +33,10 @@
   boot = {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
-
+    
     kernelParams = [
-      "amdgpu.runpm=0"
-      "amdgpu.dc=1"
-      "amdgpu.modeset=1"
+      "nvidia.NVreg_UsePageAttributeTable=1"
+      "nvidia.NVreg_RegistryDwords=RmEnableAggressiveVblank=1,RMIntrLockingMode=1"
     ];
     kernelModules = lib.mkIf (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.1") [
       "hp-wmi"
@@ -48,9 +47,9 @@
   # ------------------------
   # Display Manager
   # ------------------------
-  services.xserver.enable = true;
+  services.xserver.enable = false;
   services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = false;
+  services.displayManager.sddm.wayland.enable = true;
 
   # ------------------------
   # Graphics Drivers
@@ -65,6 +64,7 @@
 
   hardware.nvidia = {
     prime = {
+      offload.enable=true;
       amdgpuBusId = "PCI:6:0:0";
       nvidiaBusId = "PCI:1:0:0";
     };
@@ -79,9 +79,7 @@
   # ------------------------
   # Hyprland
   # ------------------------
-  programs.hyprland = {
-    enable = true;
-  };
+  programs.hyprland.enable = true;
 
   # ------------------------
   # Audio
