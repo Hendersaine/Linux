@@ -1,35 +1,139 @@
-# GPU Environment
-env = AQ_DRM_DEVICES,/dev/dri/card2:/dev/dri/card1
+{ config, pkgs, lib, ... }:
 
-# Monitors
-monitor = eDP-1, 2560x1440@164, 0x0, 1
-monitor = HDMI-A-1,1920x1080@75, auto-left, 1
+{
+  imports = [ 
+    ./hardware-configuration.nix 
+#    ../../common/cpu/amd 
+#    ../../common/cpu/amd/pstate.nix 
+#    ../../common/gpu/nvidia/prime.nix 
+#    ../../common/gpu/nvidia/ampere 
+#    ../../common/pc/laptop 
+#    ../../common/pc/ssd 
+  ];
 
-# Workspaces
-workspace = 1, monitor:eDP-1, default:true
-workspace = 2, monitor:eDP-1
-workspace = 3, monitor:eDP-1
-workspace = 4, monitor:HDMI-A-1
-workspace = 5, monitor:HDMI-A-1
-workspace = 6, monitor:HDMI-A-1
+  # ------------------------
+  # Basic system settings
+  # ------------------------
+  networking.hostName = "nixos";
+  networking.networkmanager.enable = true;
 
-#Window Rules
-windowrulev2 = pin, class:kitty, workspace:4
+  time.timeZone = "Europe/Isle_of_Man";
+  i18n.defaultLocale = "en_GB.UTF-8";
+  console.keyMap = "uk";
 
-# Mouse
-#accel_profile=flat
+  users.users.calum = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "video" "audio" "docker"];
+    packages = with pkgs; [ kdePackages.kate ];
+  };
 
-# Autostart apps
-exec-once = hyprctl dispatch workspace 1
-exec-once = waybar
-exec-once = mako
-exec-once = wofi
-exec-once = wl-clipboard
-exec-once = kitty
+  # ------------------------
+  # Bootloader
+  # ------------------------
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
 
-#Keybinds
-bind = LAlt+LShift, S, exec, "grim -g \"$(slurp)\" ~/Pictures/screenshot_$(date +%F_%T).png"
-bind = LAlt, t, exec, "kitty"
-bind = LAlt, c, exec, "firefox"
-bind = LAlt, SPACE, exec, "wofi --show drun"
-bind = LAlt, q, forcekillactive
+    kernelModules = lib.mkIf (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.1") [
+      "hp-wmi"
+    ];
+
+    kernelParams = ["module_blacklist=amdgpu"];
+  };
+
+  # ------------------------
+  # Display Manager
+  # ------------------------
+  services.xserver.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = false;
+
+  # ------------------------
+  # Nvidia
+  # ------------------------
+  hardware.graphics = {
+    enable = true;
+  };
+
+  services.xserver.videoDrivers = ["nvidia"];
+
+  hardware.nvidia = {
+#    prime = {
+#      offload = {
+#        enable = true;
+#        enableOffloadCmd = true;
+#      };
+#      amdgpuBusId = "PCI:6:0:0";
+#      nvidiaBusId = "PCI:1:0:0";
+#    };
+
+    modesetting.enable = true;
+    
+    powerManagement.finegrained = false;
+
+    open = true;
+
+    nvidiaSettings = true;
+
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  # ------------------------
+  # Hyprland
+  # ------------------------
+  programs.hyprland = {
+    enable = true;
+  };
+
+  # ------------------------
+  # Docker
+  # ------------------------
+  virtualisation.docker.enable = true;
+
+  # ------------------------
+  # Audio
+  # ------------------------
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+  };
+  security.rtkit.enable = true;
+
+  # ------------------------
+  # System packages
+  # ------------------------
+  environment.systemPackages = with pkgs; [
+    git
+    vim
+    firefox
+    kitty
+    waybar
+    wofi
+    mako
+    wl-clipboard
+    grim
+    slurp
+    spotify
+    vscode
+  ];
+
+  # ------------------------
+  # Fonts
+  # ------------------------
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-emoji
+    dejavu_fonts
+  ];
+
+  # ------------------------
+  # Environment Variables
+  # ------------------------
+  nixpkgs.config.allowUnfree = true;
+
+  # ------------------------
+  # State version
+  # ------------------------
+  system.stateVersion = "25.05";
+}
