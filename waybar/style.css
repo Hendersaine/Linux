@@ -1,0 +1,44 @@
+* {
+  border: none;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+}
+
+window#waybar {
+  background: transparent;
+  color: #ebdbb3;
+}
+tooltip label {
+  color: #ebdbb3;
+}
+
+.modules-left, .modules-center, .modules-right {
+  padding: 1px 8px;
+  margin: 5px 4px 0 4px;
+  background: #3c3836;
+  border-radius: 13px;
+}
+
+#workspaces button {
+  padding: 0px 5px;
+  background: transparent;
+  color: #bdae93;
+  border-radius: 13px;
+  transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.active {
+  background: #504946;
+  color: #fbf1c7;
+  min-width: 24px;
+  transition: all 0.3s ease-in-out;
+}
+
+
+#clock, #battery, #network, #pulseaudio{
+  padding: 1px 6px;
+}
+#custom-power{
+  color: #458588;
+  padding-left: 6px;
+}
