@@ -104,18 +104,28 @@
   # System packages
   # ------------------------
   environment.systemPackages = with pkgs; [
+    #Productive
     git
     vim
     firefox
     kitty
+    vscode
+
+    #Nix Stuff
     waybar
     wofi
     mako
     wl-clipboard
     grim
     slurp
+    hyprpaper
+    wlogout
+
+    #Not Productive
     spotify
-    vscode
+    neofetch
+    cbonsai
+    pipes
   ];
 
   # ------------------------
@@ -125,6 +135,9 @@
     noto-fonts
     noto-fonts-emoji
     dejavu_fonts
+    jetbrains-mono
+    font-awesome
+    nerd-fonts.hack
   ];
 
   # ------------------------
