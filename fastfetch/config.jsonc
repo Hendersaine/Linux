@@ -1,0 +1,103 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "padding": {
+            "top": 2
+        }
+    },
+       "modules": [
+        "title",
+        "separator",
+
+        {
+            "type": "custom",
+            "format": "{#1}┌───────── System Information ─────────┐"
+        },
+        {
+            "type": "os",
+            "key": "│ ┌  OS",
+            "keyColor": "blue"
+        },
+        {
+            "type": "host",
+            "key": "│ ├  Host",
+            "keyColor": "blue"
+        },
+        {
+            "type": "wm",
+            "key": "│ ├  WM",
+            "keyColor": "blue"
+        },
+        {
+            "type": "terminal",
+            "key": "│ ├  Terminal",
+            "keyColor": "blue"
+        },
+        {
+            "type": "terminalfont",
+            "key": "│ ├  Font",
+            "keyColor": "blue"
+        },
+        {
+            "type": "uptime",
+            "key": "│ ├  Uptime",
+            "keyColor": "blue"
+        },
+        {
+            "type": "datetime",
+            "key": "│ └  Date & Time",
+            "keyColor": "blue"
+        },
+        {
+            "type": "custom",
+            "format": "{#1}└──────────────────────────────────────┘"
+        },
+        {
+            "type": "custom",
+            "format": "{#1}┌──────── Hardware Information ────────┐"
+        },
+        {
+            "type": "display",
+            "key": "│ ┌  Display",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "monitor",
+            "key": "│ ├  Monitor",
+            "keyColor": "cyan"
+        },        
+        {
+            "type": "gpu",
+            "key": "│ ├  GPU",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "cpu",
+            "key": "│ ├  CPU",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "memory",
+            "key": "│ └  RAM",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "custom",
+            "format": "{#1}└──────────────────────────────────────┘"
+        },
+        {
+            "type": "custom",
+            "format": "{#1}┌─────────────── Colours ──────────────┐"
+        },
+	{
+	   "type": "colors",
+            "key": "│ Colours ",
+            "keyColor": "green",
+	   "symbol": "circle"
+	},
+        {
+            "type": "custom",
+            "format": "{#1}└──────────────────────────────────────┘"
+        },
+    ]
+}
