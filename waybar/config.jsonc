@@ -73,7 +73,8 @@
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
+        "tooltip-format": "{capacity}%"
     },
     "power-profiles-daemon": {
       "format": "{icon}",
@@ -112,7 +113,8 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pavucontrol",
+        "tooltip-format": "{volume}%"
     },
     "custom/media": {
         "format": "{icon} {text}",
