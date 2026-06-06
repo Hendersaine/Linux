@@ -1,0 +1,15 @@
+[SddmGreeterTheme]
+Name=artemis-sddm1
+Description=artemis-sddm-theme
+Author=hendersaine
+Website=https://github.com/hendersaine/linux
+License=GPL-3.0-or-later
+Type=sddm-theme
+Version=1.3
+ConfigFile=Themes/artemis.conf
+Screenshot=Previews/artemis.jpg
+MainScript=Main.qml
+TranslationsDirectory=translations
+Theme-Id=artemis-sddm-theme
+Theme-API=2.0
+QtVersion=6
